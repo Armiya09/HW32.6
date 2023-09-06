@@ -1,0 +1,74 @@
+#include "gtest/gtest.h"
+#include "gmock/gmock.h"
+
+// Подключение класса Calculator
+#include "calculator.h"
+
+// Создание мок-объекта для класса Calculator
+class MockCalculator : public Calculator {
+ public:
+  MOCK_METHOD(int, add, (int a, int b), (override));
+  MOCK_METHOD(int, subtract, (int a, int b), (override));
+  MOCK_METHOD(int, multiply, (int a, int b), (override));
+  MOCK_METHOD(int, divide, (int a, int b), (override));
+};
+
+// Тестирование метода add
+TEST(CalculatorTest, AddTest) {
+  MockCalculator mock_calculator;
+
+  // Ожидаемый вызов метода add(2, 3) и возвращение результата 5
+  EXPECT_CALL(mock_calculator, add(2, 3)).WillOnce(Return(5));
+
+  // Создание объекта Calculator и вызов метода add(2, 3)
+  Calculator calculator;
+  int result = calculator.add(2, 3);
+
+  // Проверка, что результат равен ожидаемому
+  EXPECT_EQ(result, 5);
+}
+
+// Тестирование метода subtract
+TEST(CalculatorTest, SubtractTest) {
+  MockCalculator mock_calculator;
+
+  // Ожидаемый вызов метода subtract(5, 3) и возвращение результата 2
+  EXPECT_CALL(mock_calculator, subtract(5, 3)).WillOnce(Return(2));
+
+  // Создание объекта Calculator и вызов метода subtract(5, 3)
+  Calculator calculator;
+  int result = calculator.subtract(5, 3);
+
+  // Проверка, что результат равен ожидаемому
+  EXPECT_EQ(result, 2);
+}
+
+// Тестирование метода multiply
+TEST(CalculatorTest, MultiplyTest) {
+  MockCalculator mock_calculator;
+
+  // Ожидаемый вызов метода multiply(2, 4) и возвращение результата 8
+  EXPECT_CALL(mock_calculator, multiply(2, 4)).WillOnce(Return(8));
+
+  // Создание объекта Calculator и вызов метода multiply(2, 4)
+  Calculator calculator;
+  int result = calculator.multiply(2, 4);
+
+  // Проверка, что результат равен ожидаемому
+  EXPECT_EQ(result, 8);
+}
+
+// Тестирование метода divide
+TEST(CalculatorTest, DivideTest) {
+  MockCalculator mock_calculator;
+
+  // Ожидаемый вызов метода divide(10, 2) и возвращение результата 5
+  EXPECT_CALL(mock_calculator, divide(10, 2)).WillOnce(Return(5));
+
+  // Создание объекта Calculator и вызов метода divide(10, 2)
+  Calculator calculator;
+  int result = calculator.divide(10, 2);
+
+  // Проверка, что результат равен ожидаемому
+  EXPECT_EQ(result, 5);
+}
